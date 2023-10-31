@@ -1,7 +1,7 @@
 .PHONY: build
 build:
-	gcc linkedList.c
+	gcc linkedList.c list.c
 
 .PHONY: run
 run:
-	gcc linkedList.c && ./a.out
+	gcc linkedList.c list.c && ./a.out

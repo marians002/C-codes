@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include "linkedList.h"
 
 typedef struct
 {
@@ -63,5 +64,8 @@ int insert(charList* l, int i, char v)
 
 int main()
 {
-    charList* l = init();
+    // charList* l = init();
+    struct LinkedList list;
+    append(&list, 13);
+    printList(&list);
 }

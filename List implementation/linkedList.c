@@ -1,17 +1,18 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include "linkedList.h"
 
 // Definición de la estructura para los nodos de la lista
-struct Node {
-    int data; // Datos del nodo
-    struct Node* next; // Puntero al siguiente nodo
-};
+// struct Node {
+//     int data; // Datos del nodo
+//     struct Node* next; // Puntero al siguiente nodo
+// };
 
-// Definición de la estructura para la lista enlazada
-struct LinkedList {
-    struct Node* head; // Puntero al primer nodo
-    struct Node* tail; // Puntero al último nodo
-};
+// // Definición de la estructura para la lista enlazada
+// struct LinkedList {
+//     struct Node* head; // Puntero al primer nodo
+//     struct Node* tail; // Puntero al último nodo
+// };
 
 // Función para añadir un nodo al final de la lista
 void append(struct LinkedList* list, int new_data) {
@@ -95,25 +96,25 @@ void printList(struct LinkedList* list) {
    printf("\n");
 }
 
-int main() {
-   struct LinkedList list; // Lista vacía
+// int main() {
+//    struct LinkedList list; // Lista vacía
 
-   append(&list, 1); // Añadir elementos a la lista
-   append(&list, 2);
-   append(&list, 3);
-   append(&list, 4);
-   append(&list, 5);
-   append(&list, 6);
-   append(&list, 7);
-   append(&list, 8);
-   append(&list, 9);
-   append(&list, 10);
+//    append(&list, 1); // Añadir elementos a la lista
+//    append(&list, 2);
+//    append(&list, 3);
+//    append(&list, 4);
+//    append(&list, 5);
+//    append(&list, 6);
+//    append(&list, 7);
+//    append(&list, 8);
+//    append(&list, 9);
+//    append(&list, 10);
 
-   deleteNode(&list, 2); // Borrar el elemento '2' de la lista
+//    deleteNode(&list, 2); // Borrar el elemento '2' de la lista
 
-   modifyNode(&list, 3, 4); // Modificar el elemento '3' a '4'
+//    modifyNode(&list, 3, 4); // Modificar el elemento '3' a '4'
 
-   printList(&list); // Imprimir todos los elementos de la lista
+//    printList(&list); // Imprimir todos los elementos de la lista
 
-   return 0;
-}
+//    return 0;
+// }
