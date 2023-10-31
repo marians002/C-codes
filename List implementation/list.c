@@ -24,7 +24,7 @@ charList* init()
 
 char get(charList* l, int i)
 {
-    if(i >= 0 && i < l -> len)
+    if (i >= 0 && i < l -> len)
         return l -> data[i];
     else
         return -1;
@@ -43,7 +43,7 @@ int set(charList* l, int p, char c)
 
 int insert(charList* l, int i, char v)
 {
-    if(i < 0 || i > l -> len) // check i is valid
+    if (i < 0 || i > l -> len) // check i is valid
         return -1;
 
     if (l -> size == l-> len)
@@ -52,7 +52,7 @@ int insert(charList* l, int i, char v)
         l-> data = (char*) realloc(l -> data, l -> size*sizeof(char));
     }
 
-    for(int j = l->len; j > i; j--)
+    for (int j = l->len; j > i; j--)
         l->data[j] = l->data[j-1];
 
     l->data[i] = v;
