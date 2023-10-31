@@ -10,31 +10,31 @@ typedef struct
 
 int length(charList* list)
 {
-    return list -> len;
+    return list  ->  len;
 }
 
 charList* init()
 {
     charList* l = (charList*)malloc(sizeof(charList));
-    l -> len = 0; 
-    l -> size = 10;
-    l -> data = (char*)malloc(l -> size * sizeof(char));
+    l  ->  len = 0; 
+    l  ->  size = 10;
+    l  ->  data = (char*)malloc(l  ->  size * sizeof(char));
     return l;
 }
 
 char get(charList* l, int i)
 {
-    if (i >= 0 && i < l -> len)
-        return l -> data[i];
+    if (i >= 0 && i < l  ->  len)
+        return l  ->  data[i];
     else
         return -1;
 }
 
 int set(charList* l, int p, char c)
 {
-    if (p >= 0 && p < l -> len)
+    if (p >= 0 && p < l  ->  len)
     {
-        l -> data[p] = c;
+        l  ->  data[p] = c;
         return 0;
     }
     else
@@ -43,20 +43,20 @@ int set(charList* l, int p, char c)
 
 int insert(charList* l, int i, char v)
 {
-    if (i < 0 || i > l -> len) // check i is valid
+    if (i < 0 || i > l  ->  len) // check i is valid
         return -1;
 
-    if (l -> size == l-> len)
+    if (l  ->  size == l ->  len)
     {
-        l -> size = l->size*2;
-        l-> data = (char*) realloc(l -> data, l -> size*sizeof(char));
+        l  ->  size = l -> size*2;
+        l ->  data = (char*) realloc(l  ->  data, l  ->  size*sizeof(char));
     }
 
-    for (int j = l->len; j > i; j--)
-        l->data[j] = l->data[j-1];
+    for (int j = l -> len; j > i; j--)
+        l -> data[j] = l -> data[j-1];
 
-    l->data[i] = v;
-    l->len++;
+    l -> data[i] = v;
+    l -> len++;
     
     return 0;
 }
