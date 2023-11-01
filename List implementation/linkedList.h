@@ -1,5 +1,5 @@
 // linkedlist.h
-#ifndef LINKEDLIST_H // Directiva de preprocesador para evitar la inclusión múltiple
+#ifndef LINKEDLIST_H
 #define LINKEDLIST_H
 
 // Definición de la estructura para los nodos de la lista
@@ -18,5 +18,6 @@ struct LinkedList {
 void append(struct LinkedList* list, int new_data);
 void deleteNode(struct LinkedList* list, int key);
 void printList(struct LinkedList* list);
+void deleteLastNode(struct LinkedList* list);
 
-#endif // Fin de la directiva de preprocesador
+#endif

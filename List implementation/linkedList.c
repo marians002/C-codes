@@ -2,18 +2,6 @@
 #include <stdlib.h>
 #include "linkedList.h"
 
-// Definición de la estructura para los nodos de la lista
-// struct Node {
-//     int data; // Datos del nodo
-//     struct Node* next; // Puntero al siguiente nodo
-// };
-
-// // Definición de la estructura para la lista enlazada
-// struct LinkedList {
-//     struct Node* head; // Puntero al primer nodo
-//     struct Node* tail; // Puntero al último nodo
-// };
-
 // Función para añadir un nodo al final de la lista
 void append(struct LinkedList* list, int new_data) {
     // 1. Asignar memoria para el nuevo nodo
@@ -84,6 +72,40 @@ void modifyNode(struct LinkedList* list, int key, int new_data) {
    temp -> data = new_data;
 }
 
+// Función para eliminar el último nodo de la lista
+void deleteLastNode(struct LinkedList* list) {
+    // 1. Si la lista está vacía, no hay nada que eliminar
+    if (list -> head == NULL) {
+        return;
+    }
+
+    // 2. Si la lista solo tiene un nodo, eliminar ese nodo
+    if (list -> head == list -> tail) {
+        free(list -> head);
+        list -> head = list -> tail = NULL;
+        return;
+    }
+
+    // 3. Almacenar el nodo cabeza y el nodo anterior
+    struct Node* temp = list -> head;
+    struct Node* prev = NULL;
+
+    // 4. Recorrer la lista hasta el último nodo
+    while (temp != list -> tail) {
+        prev = temp;
+        temp = temp -> next;
+    }
+
+    // 5. Desenlazar el último nodo de la lista
+    prev -> next = NULL;
+
+    // 6. Actualizar el último nodo
+    list -> tail = prev;
+
+    // 7. Liberar memoria
+    free(temp);
+}
+
 // Función para imprimir todos los elementos de la lista
 void printList(struct LinkedList* list) {
    struct Node* temp = list -> head;
@@ -95,26 +117,3 @@ void printList(struct LinkedList* list) {
 
    printf("\n");
 }
-
-// int main() {
-//    struct LinkedList list; // Lista vacía
-
-//    append(&list, 1); // Añadir elementos a la lista
-//    append(&list, 2);
-//    append(&list, 3);
-//    append(&list, 4);
-//    append(&list, 5);
-//    append(&list, 6);
-//    append(&list, 7);
-//    append(&list, 8);
-//    append(&list, 9);
-//    append(&list, 10);
-
-//    deleteNode(&list, 2); // Borrar el elemento '2' de la lista
-
-//    modifyNode(&list, 3, 4); // Modificar el elemento '3' a '4'
-
-//    printList(&list); // Imprimir todos los elementos de la lista
-
-//    return 0;
-// }
