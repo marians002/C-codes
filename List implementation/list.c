@@ -1,26 +1,18 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "bnbStruct.h"
-// #include "linkedList.h"
 
-
-typedef struct
-{
-    int len;    //tamaño actual del array
-    int* data;
-    int size;   //tamaño maximo que se puede guardar
-} bnbList;
+#include "list.h"
 
 // Devuelve la cantidad de elementos de la lista 
-int length(bnbList* list)
+int length(list_t* list)
 {
     return list -> len;
 }
 
 // Inicializa la estructura
-bnbList* initList(int cant)
+list_t* initList(int cant)
 {
-    bnbList* l = (bnbList*)malloc(sizeof(bnbList));
+    list_t* l = (list_t*)malloc(sizeof(list_t));
     l -> len = 0; 
     l -> size = cant;
     l -> data = (int*)malloc(l -> size * sizeof(int));
@@ -28,7 +20,7 @@ bnbList* initList(int cant)
 }
 
 // Devuelve el caracter de una posición
-int get(bnbList* l, int i)
+int get(list_t* l, int i)
 {
     if (i < 0 || i >= l -> len)
         return l -> data[i];
@@ -37,7 +29,7 @@ int get(bnbList* l, int i)
 }
 
 // Setea un valor en una posición
-int set(bnbList* l, int i, int num)
+int set(list_t* l, int i, int num)
 {
     if (i < 0 || i >= l -> len)
         return -1;
@@ -50,7 +42,7 @@ int set(bnbList* l, int i, int num)
 
 // Verifica que el índice se encuentre dentro del tamaño de la lista
 // -1 => Inválido, 0 => válido
-int validIndex(bnbList* l, int i)
+int validIndex(list_t* l, int i)
 {
     if (i < 0 || i >= l -> len) // check i is valid
     {   
@@ -61,7 +53,7 @@ int validIndex(bnbList* l, int i)
 }
 
 // Aumenta el tamaño de la lista si es necesario
-void increaseSize(bnbList* l)
+void increaseSize(list_t* l)
 {
     if (l -> size == l -> len)
     {
@@ -71,7 +63,7 @@ void increaseSize(bnbList* l)
 }
 
 // Inserta un elemento en una posición definida
-int insert(bnbList* l, int i, int num)
+int insert(list_t* l, int i, int num)
 {
     // index was invalid
     if (validIndex(l, i) == -1)
@@ -89,7 +81,8 @@ int insert(bnbList* l, int i, int num)
 }
 
 // Función para eliminar el elemento de una posición específica de la lista
-int deleteAt(bnbList* l, int i) {
+int deleteAt(list_t* l, int i) 
+{
     // index was invalid
     if (validIndex(l, i) == -1)
         return -1;
@@ -110,7 +103,7 @@ int deleteAt(bnbList* l, int i) {
 }
 
 // Inserta un elemento al final de la lista
-void push(bnbList* l, int num) 
+void push(list_t* l, int num) 
 {
     increaseSize(l);
     l -> data[length(l)] = num;
@@ -118,7 +111,7 @@ void push(bnbList* l, int num)
 }
 
 // Elimina y devuelve el último elemento de la lista
-int pop(bnbList* l)
+int pop(list_t* l)
 {
     int num = get(l, length(l)-1);
     deleteAt(l, length(l)-1);
@@ -126,7 +119,8 @@ int pop(bnbList* l)
 }
 
 // Función para imprimir todos los elementos de la lista
-void printAll(bnbList* l) {
+void printAll(list_t* l) 
+{
     printf("La lista tiene %d elementos:\n", l->len);
     for (int i = 0; i < l->len; i++) {
         printf("%i ", l->data[i]);
@@ -135,20 +129,11 @@ void printAll(bnbList* l) {
 }
 
 // Función para imprimir el elemento de una posición específica de la lista
-void printAt(bnbList* l, int i) {
+void printAt(list_t* l, int i) 
+{
     if (i >= 0 && i < l->len) {
         printf("El elemento en la posición %d es: %i\n", i, l->data[i]);
     } else {
         printf("Posición inválida\n");
     }
-}
-
-int main()
-{    
-    bnbList* procList = initList(30);
-
-    bnbProcess proc=init();
-
-    printf("%i\n",proc.heap[0]);
-
 }

@@ -1,22 +1,16 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-typedef struct 
-{
-    int* stack_elements;    //Array con los elementos del stack
-    int size;   // Tamaño máximo del stack
-    int len;    // Tamaño actual del stack
-    int tail;   // Último elemento del stack
-    int head;   // Primer elemento del stack
-} stack;
+#include "stack.h"
 
 // Inicializa la pila
-stack* initialize(int size) {
+stack* initialize(int size) 
+{
     stack* s = (stack*)malloc(sizeof(stack));
     s->stack_elements = (int*)malloc(size * sizeof(int));
     s->size = size;
     s->len = 0;
-    s->head = -1;
+    s->head = 0;
     s->tail = -1;
     return s;
 }
@@ -52,4 +46,10 @@ int pop(stack* s) {
     s->len--;
     s->tail--;
     return element;
+}
+
+// Devuelve el último elemento pusheado
+int get_tail(stack* s)
+{
+    return s->stack_elements[s->tail];
 }
