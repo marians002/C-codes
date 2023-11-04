@@ -1,43 +1,55 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <limits.h>
 
-// Definición de la estructura para los nodos de la pila
-struct Node {
-    int data;
-    struct Node* next;
-};
+typedef struct 
+{
+    int* stack_elements;    //Array con los elementos del stack
+    int size;   // Tamaño máximo del stack
+    int len;    // Tamaño actual del stack
+    int tail;   // Último elemento del stack
+    int head;   // Primer elemento del stack
+} stack;
 
-// Función para crear un nuevo nodo con un valor dado
-struct Node* newNode(int data) {
-    struct Node* stackNode = (struct Node*) malloc(sizeof(struct Node));
-    stackNode->data = data;
-    stackNode->next = NULL;
-    return stackNode;
+// Inicializa la pila
+stack* initialize(int size) {
+    stack* s = (stack*)malloc(sizeof(stack));
+    s->stack_elements = (int*)malloc(size * sizeof(int));
+    s->size = size;
+    s->len = 0;
+    s->head = -1;
+    s->tail = -1;
+    return s;
 }
 
-// Función para verificar si la pila está vacía
-int isEmpty(struct Node* root) {
-    return !root;
+// Verifica si la pila está vacía
+int is_empty(stack* s) {
+    return s->len == 0;
 }
 
-// Función para agregar un elemento a la pila
-void push(struct Node** root, int data) {
-    struct Node* stackNode = newNode(data);
-    stackNode->next = *root;
-    *root = stackNode;
-    printf("%d pushed to stack\n", data);
+// Devuelve el tamaño de la pila
+int size(stack* s) {
+    return s->len;
 }
 
-// Función para eliminar un elemento de la pila
-int pop(struct Node** root) {
-    if (isEmpty(*root)) {
-        return INT_MIN;
+// Agrega un elemento a la pila
+void push(stack* s, int element) {
+    if (s->len == s->size) {
+        printf("La pila está llena.\n");
+        return;
     }
-    struct Node* temp = *root;
-    *root = (*root)->next;
-    int popped = temp->data;
-    free(temp);
+    s->len++;
+    s->tail++;
+    s->stack_elements[s->tail] = element;
+}
 
-    return popped;
+// Elimina un elemento de la pila
+int pop(stack* s) {
+    if (is_empty(s)) {
+        printf("La pila está vacía.\n");
+        return -1;
+    }
+    int element = s->stack_elements[s->tail];
+    s->len--;
+    s->tail--;
+    return element;
 }

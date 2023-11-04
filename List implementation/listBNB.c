@@ -1,15 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "bnbStruct.h"
-// #include "linkedList.h"
-
-
-typedef struct
-{
-    int len;    //tamaño actual del array
-    int* data;
-    int size;   //tamaño maximo que se puede guardar
-} bnbList;
+#include "listBNB.h"
 
 // Devuelve la cantidad de elementos de la lista 
 int length(bnbList* list)
@@ -18,38 +10,41 @@ int length(bnbList* list)
 }
 
 // Inicializa la estructura
-bnbList* initList(int cant)
+bnbList* initList()
 {
     bnbList* l = (bnbList*)malloc(sizeof(bnbList));
     l -> len = 0; 
-    l -> size = cant;
-    l -> data = (int*)malloc(l -> size * sizeof(int));
+    l -> size = 10;
+    l -> data = (bnbProcess*)malloc(l -> size * sizeof(bnbProcess));
     return l;
 }
 
-// Devuelve el caracter de una posición
-int get(bnbList* l, int i)
+// Devuelve el proceso de una posición en un puntero result
+// Ante un error devuelve -1. Else devuelve 0
+int get(bnbList* l, int i, bnbProcess* result)
 {
-    if (i < 0 || i >= l -> len)
-        return l -> data[i];
+    if (i >= 0 && i < l -> len) 
+    {
+        *result = l -> data[i]; // Use the pointer to store the result
+        return 0; // Return 0 for success
+    }
     else
-        return -1;
+        return -1; // Return -1 for failure
 }
 
 // Setea un valor en una posición
-int set(bnbList* l, int i, int num)
+int set(bnbList* l, int i, bnbProcess proc)
 {
     if (i < 0 || i >= l -> len)
         return -1;
     else
     {
-        l -> data[i] = num;
+        l -> data[i] = proc;
         return 0;
     }
 }
 
 // Verifica que el índice se encuentre dentro del tamaño de la lista
-// -1 => Inválido, 0 => válido
 int validIndex(bnbList* l, int i)
 {
     if (i < 0 || i >= l -> len) // check i is valid
@@ -66,12 +61,12 @@ void increaseSize(bnbList* l)
     if (l -> size == l -> len)
     {
         l -> size = l -> size*2;
-        l ->  data = (int*) realloc(l -> data, l -> size*sizeof(int));
+        l ->  data = (bnbProcess*) realloc(l -> data, l -> size*sizeof(bnbProcess));
     }
 }
 
 // Inserta un elemento en una posición definida
-int insert(bnbList* l, int i, int num)
+int insert(bnbList* l, int i, bnbProcess proc)
 {
     // index was invalid
     if (validIndex(l, i) == -1)
@@ -82,7 +77,7 @@ int insert(bnbList* l, int i, int num)
     for (int j = l -> len; j > i; j--)
         l -> data[j] = l -> data[j-1];
 
-    l -> data[i] = num;
+    l -> data[i] = proc;
     l -> len++;
     
     return 0;
@@ -104,32 +99,40 @@ int deleteAt(bnbList* l, int i) {
     // Si el tamaño de la lista es menor que la mitad del tamaño del array, reducir el tamaño del array a la mitad
     if (l->len < l->size / 2) {
         l->size /= 2;
-        l->data = (int*) realloc(l->data, l->size * sizeof(int));
+        l->data = (bnbProcess*) realloc(l->data, l->size * sizeof(bnbProcess));
     }
+
     return 0;
 }
 
 // Inserta un elemento al final de la lista
-void push(bnbList* l, int num) 
+void push(bnbList* l, bnbProcess proc) 
 {
     increaseSize(l);
-    l -> data[length(l)] = num;
+    l -> data[length(l)] = proc;
     l -> len++;
 }
 
 // Elimina y devuelve el último elemento de la lista
-int pop(bnbList* l)
+int pop(bnbList* l, bnbProcess* result)
 {
-    int num = get(l, length(l)-1);
-    deleteAt(l, length(l)-1);
-    return num;
+    int status = get(l, length(l)-1, result);
+
+    // El get fue exitoso
+    if (status == 0) 
+    {
+        deleteAt(l, length(l)-1);
+        return 0;
+    } 
+    else // La función get falló
+        return -1;
 }
 
 // Función para imprimir todos los elementos de la lista
 void printAll(bnbList* l) {
     printf("La lista tiene %d elementos:\n", l->len);
     for (int i = 0; i < l->len; i++) {
-        printf("%i ", l->data[i]);
+        printf("%i ", l->data[i].pid_proceso);
     }
     printf("\n");
 }
@@ -137,18 +140,9 @@ void printAll(bnbList* l) {
 // Función para imprimir el elemento de una posición específica de la lista
 void printAt(bnbList* l, int i) {
     if (i >= 0 && i < l->len) {
-        printf("El elemento en la posición %d es: %i\n", i, l->data[i]);
+        printf("El elemento en la posición %d es: %i\n", i, l->data[i].pid_proceso);
     } else {
         printf("Posición inválida\n");
     }
 }
 
-int main()
-{    
-    bnbList* procList = initList(30);
-
-    bnbProcess proc=init();
-
-    printf("%i\n",proc.heap[0]);
-
-}
